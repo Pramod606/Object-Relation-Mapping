@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+  <head>
+    <ul class="nav flex-row">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/can">Back</a>
+    </li>
+    </ul>
+    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <title>ORM PROJECT</title>
+  </head>
+  <style >
+  * {
+  box-sizing: border-box;
+}
+.center {
+  width: 60;
+  margin:auto;
+}
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: grid;
+}
+table, td, th {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  text-align: center;
+  height: 100%;
+}
+</style>
+    <body class="center">
+        <h1>Candidate List</h1>
+        <input placeholder="Name" id="name" name="name">
+        <input placeholder="Symbol no" id="symbol_no" name="symbol_no">
+        <button onclick="search()" value="search">Search </button>
+        <p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Symbol_no</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in cand %}
+                <tr>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.symbol_no }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </p>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        function search() {
+            var name = document.getElementById('name').value; 
+            var symbol_no = document.getElementById('symbol_no').value; 
+            $.ajax({
+                type: "GET",
+                url: "{% url 'candd' %}",
+                data: {
+                    "name": name,
+                    "symbol_no": symbol_no,
+                }
+            });
+        }
+    </script>
+</html>
+            
